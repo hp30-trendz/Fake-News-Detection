@@ -6,6 +6,7 @@ from src.data.loader import DataLoader
 from src.data.validator import DatasetValidator
 from src.visualization.eda import EDAAnalyzer
 from src.visualization.plots import PlotGenerator
+from src.visualization.wordclouds import WordCloudGenerator
 
 
 def main() -> None:
@@ -40,6 +41,28 @@ def main() -> None:
     plotter.plot_title_length_distribution(
         merged_dataset
 
+    )
+
+    wordcloud = WordCloudGenerator()
+
+    wordcloud.generate_wordcloud(
+    merged_dataset,
+    "FAKE",
+    )
+
+    wordcloud.generate_wordcloud(
+    merged_dataset,
+    "REAL",
+    )
+
+    wordcloud.top_words(
+    merged_dataset,
+    "FAKE",
+    )
+
+    wordcloud.top_words(
+    merged_dataset,
+    "REAL",
     )
 
     print("\n")
