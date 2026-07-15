@@ -2,8 +2,8 @@
 Project entry point.
 """
 
-from src.data_loader import DataLoader
-from src.validator import DatasetValidator
+from src.data.loader import DataLoader
+from src.data.validator import DatasetValidator
 
 
 def main() -> None:
