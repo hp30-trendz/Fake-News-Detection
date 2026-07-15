@@ -4,6 +4,8 @@ Project entry point.
 
 from src.data.loader import DataLoader
 from src.data.validator import DatasetValidator
+from src.visualization.eda import EDAAnalyzer
+from src.visualization.plots import PlotGenerator
 
 
 def main() -> None:
@@ -21,7 +23,24 @@ def main() -> None:
     )
 
     validator.save_dataset(merged_dataset)
+
     validator.dataset_statistics(merged_dataset)
+
+    eda = EDAAnalyzer(merged_dataset)
+
+    eda.summary()
+
+    plotter = PlotGenerator()
+    plotter.plot_class_distribution(merged_dataset)
+
+    plotter.plot_text_length_distribution(
+        merged_dataset
+    )
+
+    plotter.plot_title_length_distribution(
+        merged_dataset
+
+    )
 
     print("\n")
     print("=" * 60)
