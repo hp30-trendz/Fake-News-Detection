@@ -21,6 +21,7 @@ def main() -> None:
     )
 
     validator.save_dataset(merged_dataset)
+    validator.dataset_statistics(merged_dataset)
 
     print("\n")
     print("=" * 60)
