@@ -10,6 +10,7 @@ from src.data.validator import DatasetValidator
 from src.visualization.eda import EDAAnalyzer
 from src.visualization.plots import PlotGenerator
 from src.visualization.wordclouds import WordCloudGenerator
+from src.models.dataset_splitter import DatasetSplitter
 
 
 class TrainingPipeline:
@@ -49,6 +50,13 @@ class TrainingPipeline:
 
         preprocessor.save(
             merged_dataset
+        )
+
+        # Split dataset
+        splitter = DatasetSplitter()
+
+        X_train, X_test, y_train, y_test = splitter.split(
+        merged_dataset
         )
 
         # Exploratory Data Analysis
