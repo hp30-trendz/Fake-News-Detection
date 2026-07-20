@@ -11,6 +11,7 @@ import pandas as pd
 from scipy.sparse import csr_matrix
 from sklearn.feature_extraction.text import TfidfVectorizer
 
+from src.config import Config
 from src.logger import setup_logger
 
 logger = setup_logger(__name__)
@@ -68,17 +69,25 @@ class TFIDFFeatureExtractor:
 
         return self.vectorizer.transform(text)
 
-    def save(
-        self,
-        output_path: Path,
-    ) -> None:
+    def save(self) -> Path:
         """
-        Save the fitted vectorizer.
+        Save the fitted TF-IDF vectorizer.
+
+        Returns
+        -------
+        Path
+            Path to the saved vectorizer.
         """
 
-        output_path.parent.mkdir(
+        output_directory = Config.MODELS_DIR / "vectorizers"
+
+        output_directory.mkdir(
             parents=True,
             exist_ok=True,
+        )
+
+        output_path = (
+            output_directory / "tfidf_vectorizer.joblib"
         )
 
         joblib.dump(
@@ -91,12 +100,24 @@ class TFIDFFeatureExtractor:
             output_path,
         )
 
+        return output_path
+
     @staticmethod
     def load(
         model_path: Path,
     ) -> TfidfVectorizer:
         """
         Load a saved TF-IDF vectorizer.
+
+        Parameters
+        ----------
+        model_path : Path
+            Path to the saved TF-IDF vectorizer.
+
+        Returns
+        -------
+        TfidfVectorizer
+            Loaded TF-IDF vectorizer.
         """
 
         logger.info(
